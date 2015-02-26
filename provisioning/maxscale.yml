@@ -1,0 +1,12 @@
+# file: maxscale.yml
+- hosts: maxscale
+  user: vagrant
+  tasks:
+  - name: download maxscale
+    get_url: url=https://downloads.mariadb.com/software/MaxScale/maxscale-1.0.5-ga/DEB/dists/trusty/main/binary-amd64/maxscale-1.0.5-stable.deb dest=/tmp
+  - name: install maxscale
+    apt: deb=/tmp/maxscale-1.0.5-stable.deb
+  - name: copy maxscale configuration
+    copy: src=MaxScale.cnf dest=/usr/local/skysql/maxscale/etc/
+  - name: start maxscale
+    service: name=maxscale state=started

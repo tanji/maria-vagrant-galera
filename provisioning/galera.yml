@@ -1,0 +1,18 @@
+# file: galera.yml
+- hosts: db1:db2:db3
+  user: vagrant
+  tasks:
+  - name: Add repository key to the system
+    apt_key: keyserver=keyserver.ubuntu.com id=0xcbcb082a1bb943db
+  - name: Install MariaDB repository
+    apt_repository: repo='deb http://ams2.mirrors.digitalocean.com/mariadb/repo/10.0/ubuntu trusty main' state=present
+  - name: Create MariaDB configuration directory
+    file: path=/etc/mysql/conf.d state=directory
+  - name: copy MariaDB config file
+    template: src=galera.cnf dest=/etc/mysql/conf.d
+  - name: Install policy file
+    lineinfile: dest=/usr/sbin/policy-rc.d create=yes mode=0755 regexp="^exit" line="exit 101" state=present
+  - name: Install python module
+    apt: name=python-mysqldb state=installed
+  - name: Install MariaDB Galera Server
+    apt: name=mariadb-galera-server state=latest update_cache=yes

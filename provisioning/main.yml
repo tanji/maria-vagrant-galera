@@ -1,0 +1,3 @@
+- include: galera.yml
+- include: bootstrap.yml
+- include: maxscale.yml
