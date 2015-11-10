@@ -17,6 +17,15 @@ user=maxadmin
 passwd=maxpwd
 router_options=slave
 
+[Splitter Service]
+type=service
+router=readwritesplit
+servers=server1,server2,server3
+user=maxadmin
+passwd=maxpwd
+max_slave_connections=100%
+options=slave_selection_criteria=LEAST_GLOBAL_CONNECTIONS
+
 [Debug Interface]
 type=service
 router=debugcli
@@ -32,6 +41,13 @@ protocol=MySQLClient
 address=192.168.50.104
 port=4008
 #socket=/tmp/readconn.sock
+
+[Splitter Listener]
+type=listener
+service=Splitter Service
+protocol=MySQLClient
+address=192.168.50.104
+port=4006
 
 [Debug Listener]
 type=listener

@@ -5,7 +5,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "bento/centos-6.7"
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "provisioning/main.yml"
     ansible.verbose = "v"
@@ -30,10 +30,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "maxscale" do |maxscale|
     maxscale.vm.hostname = "maxscale"
     maxscale.vm.network "private_network", ip: "192.168.50.104"
+    maxscale.vm.network "forwarded_port", guest_ip: "192.168.50.104", guest:4008, host:3308
   end
 
   config.vm.provider "virtualbox" do |v|
     v.memory = 512
     v.cpus = 1
   end
+
+  config.ssh.password = "vagrant"
+
 end

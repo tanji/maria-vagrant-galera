@@ -11,6 +11,8 @@
 - hosts: db1
   user: vagrant
   tasks:
+  - name: Install python module
+    yum: name=MySQL-python state=present
   - name: Create superuser
     mysql_user: name=maxuser host=% password=maxpwd priv=*.*:ALL state=present
   - name: Create maxscale user
