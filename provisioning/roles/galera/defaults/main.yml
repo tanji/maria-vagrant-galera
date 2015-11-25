@@ -1,2 +1,5 @@
 # default node role is non-primary
 is_primary: false
+
+# default server-id. Can be changed per host in host_vars
+server_id: 1
