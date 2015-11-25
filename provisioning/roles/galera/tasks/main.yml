@@ -1,0 +1,11 @@
+- include: selinux.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: galera-rhel.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: galera-deb.yml
+  when: ansible_os_family == 'Debian'
+
+- include: bootstrap.yml
+  when: is_primary

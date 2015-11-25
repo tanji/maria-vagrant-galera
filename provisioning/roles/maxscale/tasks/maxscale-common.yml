@@ -1,0 +1,7 @@
+# file: maxscale-common.yml 
+
+- name: copy maxscale configuration
+  copy: src=MaxScale.cnf dest=/etc/maxscale.cnf
+
+- name: start maxscale
+  service: name=maxscale state=started

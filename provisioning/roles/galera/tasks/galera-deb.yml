@@ -1,7 +1,4 @@
 # file: galera.yml
-- hosts: db1:db2:db3
-  user: vagrant
-  tasks:
   - name: Install MariaDB repository
     apt: name=http://downloads.mariadb.com/enterprise/{{ enterprise_token }}/generate/10.0/mariadb-enterprise-repository.deb state=present
   - name: copy MariaDB config file

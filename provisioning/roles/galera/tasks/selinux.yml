@@ -1,5 +1,2 @@
-- hosts: all
-  user: vagrant
-  tasks:
   - name: Install SELinux bindings
     yum: name=libselinux-python state=present

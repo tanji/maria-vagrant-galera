@@ -1,0 +1,3 @@
+- name: join servers
+  service: name=mysql state=restarted
+  when: not is_primary

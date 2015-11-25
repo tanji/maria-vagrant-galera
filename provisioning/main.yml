@@ -1,17 +1,10 @@
-- include: selinux.yml
-  when: ansible_os_family == 'RedHat'
+- hosts: all
+  sudo: yes
 
-- include: galera-rhel.yml
-  when: ansible_os_family == 'RedHat'
+- hosts: db1:db2:db3
+  roles:
+    - galera
 
-- include: galera-deb.yml
-  when: ansible_os_family == 'Debian'
-
-- include: bootstrap.yml
-
-- include: maxscale-rhel.yml
-  when: ansible_os_family == 'RedHat'
-
-- include: maxscale-deb.yml
-  when: ansible_os_family == 'Debian'
-
+- hosts: maxscale
+  roles:
+    - maxscale

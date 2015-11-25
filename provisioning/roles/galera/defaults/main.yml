@@ -1,0 +1,2 @@
+# default node role is non-primary
+is_primary: false

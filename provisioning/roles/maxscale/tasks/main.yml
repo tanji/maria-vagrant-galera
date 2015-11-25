@@ -1,0 +1,7 @@
+- include: maxscale-rhel.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: maxscale-deb.yml
+  when: ansible_os_family == 'Debian'
+
+- include: maxscale-common.yml

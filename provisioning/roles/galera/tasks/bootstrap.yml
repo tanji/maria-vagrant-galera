@@ -1,0 +1,17 @@
+- name: bootstrap the first node
+  service: name=mysql state=restarted args="--wsrep_new_cluster"
+  notify: join servers
+
+- name: Install python module
+  yum: name=MySQL-python state=present
+  when: ansible_os_family == 'RedHat'
+
+- name: Install python module
+  apt: name=python-mysqldb state=present
+  when: ansible_os_family == 'Debian'
+
+- name: Create superuser
+  mysql_user: name=maxuser host=% password=maxpwd priv=*.*:ALL state=present
+
+- name: Create maxscale user
+  mysql_user: name=maxadmin host="%" password=maxpwd priv=*.*:SELECT,"SHOW DATABASES" state=present
