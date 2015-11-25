@@ -1,9 +1,8 @@
-# file: galera.yml
-  - name: Install MariaDB repository
-    apt: name=http://downloads.mariadb.com/enterprise/{{ enterprise_token }}/generate/10.0/mariadb-enterprise-repository.deb state=present
-  - name: copy MariaDB config file
-    template: src=galera.cnf dest=/etc/my.cnf.d/
-  - name: Install MariaDB Galera Server
-    apt: name=mariadb-galera-server state=latest
-  - name: Install MariaDB-client
-    apt: name=mariadb-client state=latest
+# file: galera-deb.yml
+  - name: "[Debian] Install MariaDB"
+    apt: name={{ item }} state=present
+    with_items:
+      - "http://downloads.mariadb.com/enterprise/{{ enterprise_token }}/generate/10.0/mariadb-enterprise-repository.deb"
+      - "mariadb-server"
+      - "mariadb-client"
+    notify: join servers  

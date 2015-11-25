@@ -1,10 +1,8 @@
-# file: galera.yml
-  - name: Install MariaDB repository
-    yum: name=http://downloads.mariadb.com/enterprise/{{ enterprise_token }}/generate/10.0/mariadb-enterprise-repository.rpm state=present
-  - name: copy MariaDB config file
-    template: src=galera.cnf dest=/etc/my.cnf.d/
-  - name: Install MariaDB Galera Server
-    yum: name=MariaDB-Galera-server state=latest
+# file: galera-rhel.yml
+  - name: "[RHEL] Install MariaDB"
+    yum: name={{ item }} state=present
+    with_items:
+       - "http://downloads.mariadb.com/enterprise/{{ enterprise_token }}/generate/10.0/mariadb-enterprise-repository.rpm"
+       - MariaDB-Galera-server
+       - MariaDB-client
     notify: join servers
-  - name: Install MariaDB-client
-    yum: name=MariaDB-client state=latest
