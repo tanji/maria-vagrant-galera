@@ -13,6 +13,10 @@
   tasks:
   - name: Install python module
     yum: name=MySQL-python state=present
+    when: ansible_os_family == 'RedHat'
+  - name: Install python module
+    apt: name=python-mysqldb state=present
+    when: ansible_os_family == 'Debian'
   - name: Create superuser
     mysql_user: name=maxuser host=% password=maxpwd priv=*.*:ALL state=present
   - name: Create maxscale user

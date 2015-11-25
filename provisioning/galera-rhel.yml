@@ -7,6 +7,6 @@
   - name: copy MariaDB config file
     template: src=galera.cnf dest=/etc/my.cnf.d/
   - name: Install MariaDB Galera Server
-    yum: name=MariaDB-Galera-server state=latest
+    yum: name=mariadb-galera-server state=latest
   - name: Install MariaDB-client
-    yum: name=MariaDB-client state=latest
+    yum: name=mariadb-client state=latest

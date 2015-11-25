@@ -1,4 +1,17 @@
 - include: selinux.yml
-- include: galera.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: galera-rhel.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: galera-deb.yml
+  when: ansible_os_family == 'Debian'
+
 - include: bootstrap.yml
-- include: maxscale.yml
+
+- include: maxscale-rhel.yml
+  when: ansible_os_family == 'RedHat'
+
+- include: maxscale-deb.yml
+  when: ansible_os_family == 'Debian'
+
