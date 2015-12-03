@@ -1,8 +1,10 @@
 # file: galera-deb.yml
-  - name: "[Debian] Install MariaDB"
-    apt: name={{ item }} state=present
-    with_items:
-      - "http://downloads.mariadb.com/enterprise/{{ enterprise_token }}/generate/10.0/mariadb-enterprise-repository.deb"
-      - "mariadb-server"
-      - "mariadb-client"
-    notify: join servers  
+- get_url: url=http://downloads.mariadb.com/enterprise/{{ enterprise_token }}/generate/10.0/mariadb-enterprise-repository.deb dest=/tmp/mariadb-enterprise-repository.deb
+- name: "[Debian] | Setup enterprise repository"
+  apt: deb=/tmp/mariadb-enterprise-repository.deb update_cache=yes
+- name: "[Debian] Install MariaDB"
+  apt: name={{ item }} state=present
+  with_items:
+    - "mariadb-galera-server"
+    - "mariadb-client"
+  notify: join servers  

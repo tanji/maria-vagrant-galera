@@ -2,11 +2,11 @@
   service: name=mysql state=restarted args="--wsrep_new_cluster"
   notify: join servers
 
-- name: Install python module
+- name: Install RHEL python module
   yum: name=MySQL-python state=present
   when: ansible_os_family == 'RedHat'
 
-- name: Install python module
+- name: Install Debian python module
   apt: name=python-mysqldb state=present
   when: ansible_os_family == 'Debian'
 
