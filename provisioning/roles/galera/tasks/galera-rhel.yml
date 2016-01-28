@@ -1,8 +1,9 @@
 # file: galera-rhel.yml
-  - name: "[RHEL] Install MariaDB"
-    yum: name={{ item }} state=present
-    with_items:
-       - "http://downloads.mariadb.com/enterprise/{{ enterprise_token }}/generate/10.0/mariadb-enterprise-repository.rpm"
-       - MariaDB-Galera-server
-       - MariaDB-client
-    notify: join servers
+- name: "[RHEL] Install Enterprise repository"
+  yum: name="http://downloads.mariadb.com/enterprise/{{ enterprise_token }}/generate/10.0/mariadb-enterprise-repository.rpm" state=present
+- name: "[RHEL] Install MariaDB"
+  yum: name={{ item }} state=present
+  with_items:
+     - MariaDB-Galera-server
+     - MariaDB-client
+  notify: join servers
