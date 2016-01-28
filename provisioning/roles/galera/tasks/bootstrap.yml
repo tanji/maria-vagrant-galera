@@ -14,4 +14,4 @@
   mysql_user: name=maxuser host=% password=maxpwd priv=*.*:ALL state=present
 
 - name: Create maxscale user
-  mysql_user: name=maxadmin host="%" password=maxpwd priv=*.*:SELECT,"SHOW DATABASES" state=present
+  mysql_user: name=maxadmin host="%" password=maxpwd priv="*.*:SELECT,SHOW DATABASES" state=present
