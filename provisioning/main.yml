@@ -1,4 +1,6 @@
 - hosts: all
+#  become:true
+#  become_method: sudo
   sudo: yes
 
 - hosts: db1:db2:db3

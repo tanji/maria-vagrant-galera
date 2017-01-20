@@ -5,11 +5,13 @@
 VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "bento/centos-6.7"
+  config.vm.box = "centos/7"
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "provisioning/main.yml"
     ansible.verbose = "v"
     ansible.sudo = true
+#    ansible.become = true
+#    ansible.become_method='sudo'
     end
   
   config.vm.define "db1" do |db1|
@@ -38,6 +40,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.cpus = 1
   end
 
-  config.ssh.password = "vagrant"
+#  config.ssh.password = "vagrant"
 
 end

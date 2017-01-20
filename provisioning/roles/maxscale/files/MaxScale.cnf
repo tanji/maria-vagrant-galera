@@ -24,7 +24,7 @@ servers=server1,server2,server3
 user=maxadmin
 passwd=maxpwd
 max_slave_connections=100%
-options=slave_selection_criteria=LEAST_CURRENT_OPERATIONS
+router_options=slave_selection_criteria=LEAST_CURRENT_OPERATIONS
 
 [Debug Interface]
 type=service

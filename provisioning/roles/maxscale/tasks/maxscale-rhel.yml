@@ -1,9 +1,23 @@
-# file: maxscale-rhel.yml 
+# file: maxscale-rhel.yml
 
 - include: selinux.yml
 
-- name: install maxscale repo
-  yum: name=http://downloads.mariadb.com/enterprise/{{ enterprise_token }}/generate/10.0/mariadb-enterprise-repository.rpm state=present
+#- name: install maxscale repo
+#  yum: name=http://downloads.mariadb.com/enterprise/{{ enterprise_token }}/generate/10.0/mariadb-enterprise-repository.rpm state=present
 
-- name: install maxscale
-  yum: name=maxscale state=present    
+#- name: install maxscale
+#  yum: name=maxscale state=present
+
+- name: "[RHEL] Install maxscale repository"
+  yum_repository:
+     name: grepo
+     description: "mariadb grepo"
+     baseurl: https://downloads.mariadb.com/MaxScale/2.0.3/centos/7/x86_64/
+     gpgkey: https://downloads.mariadb.com/MaxScale//MariaDB-MaxScale-GPG-KEY
+     gpgcheck: 1
+     enabled: 1
+
+- name: "[RHEL] Install maxscale"
+  yum: name={{ item }} state=present
+  with_items:
+     - maxscale

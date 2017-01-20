@@ -1,9 +1,32 @@
 # file: galera-rhel.yml
+
 - name: "[RHEL] Install Enterprise repository"
-  yum: name="http://downloads.mariadb.com/enterprise/{{ enterprise_token }}/generate/10.0/mariadb-enterprise-repository.rpm" state=present
+#  yum: name="http://downloads.mariadb.com/enterprise/{{ enterprise_token }}/generate/10.0/mariadb-enterprise-repository.rpm" state=present
+  yum_repository: 
+     name: grepo
+     description: "mariadb grepo"
+     baseurl: http://yum.mariadb.org/10.1/centos7-amd64
+     gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+     gpgcheck: 1
+     enabled: 1
+
 - name: "[RHEL] Install MariaDB"
   yum: name={{ item }} state=present
   with_items:
-     - MariaDB-Galera-server
+     - MariaDB-server
      - MariaDB-client
+     - MariaDB-shared
   notify: join servers
+
+- name: "Percon repository"
+  yum_repository: 
+     name: Percona
+     description: "percona repo"
+     baseurl: http://repo.percona.com/centos/7/os/x86_64/
+     gpgkey: http://www.percona.com/downloads/RPM-GPG-KEY-percona
+     gpgcheck: 1
+
+- name: "install xtrabackup"
+  yum: name={{ item }} state=present
+  with_items:
+     - percona-xtrabackup
